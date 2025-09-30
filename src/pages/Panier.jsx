@@ -26,22 +26,49 @@ const Panier = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const saveOrderToLocalStorage = () => {
-    const existingOrders = JSON.parse(localStorage.getItem('orders')) || [];
+  // Fonction pour envoyer la commande via Formspree
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const newOrder = {
-      id: `CMD${Math.floor(Math.random() * 1000000)}`,
-      ...formData,
-      cartItems: cart,
-      total: totalWithDelivery,
-      date: new Date().toLocaleString(),
-    };
+    if (cart.length === 0) {
+      alert("Votre panier est vide.");
+      return;
+    }
 
-    existingOrders.push(newOrder);
-    localStorage.setItem('orders', JSON.stringify(existingOrders));
+    const orderDetails = `
+Nom: ${formData.nom}
+Prénom: ${formData.prenom}
+Adresse: ${formData.adresse}
+Téléphone: ${formData.telephone}
+Email: ${formData.email}
 
-    clearCart(); // vide directement le panier du context
-    setOrderSuccess(true);
+Produits commandés:
+${cart.map(item => `${item.name} x ${item.quantity || 1} = ${(item.price * (item.quantity || 1)).toFixed(2)} TND`).join('\n')}
+
+Total à payer: ${totalWithDelivery} TND
+    `;
+
+    try {
+      const response = await fetch("https://formspree.io/f/xnngdrgl", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: orderDetails,
+          _subject: "Nouvelle commande GEM-Padel",
+          email: formData.email,
+        }),
+      });
+
+      if (response.ok) {
+        setOrderSuccess(true);
+        clearCart();
+      } else {
+        alert("Erreur lors de l'envoi du formulaire.");
+      }
+    } catch (error) {
+      console.error("Erreur Formspree:", error);
+      alert("Erreur lors de l'envoi du formulaire.");
+    }
   };
 
   return (
@@ -49,6 +76,7 @@ const Panier = () => {
       <h1 className="text-2xl font-bold mb-6 text-center uppercase">Mes achats</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {/* Panier */}
         <div className="lg:col-span-2 space-y-4">
           {cart.length > 0 ? (
             cart.map((item) => (
@@ -85,6 +113,7 @@ const Panier = () => {
           </Link>
         </div>
 
+        {/* Récapitulatif */}
         <div className="bg-white p-6 rounded-md shadow-sm space-y-4 h-fit">
           <div className="flex justify-between text-sm">
             <span>Produits</span>
@@ -118,13 +147,7 @@ const Panier = () => {
             {!orderSuccess ? (
               <>
                 <h2 className="text-lg font-bold mb-4">Finaliser ma commande</h2>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    saveOrderToLocalStorage();
-                  }}
-                  className="space-y-3"
-                >
+                <form onSubmit={handleSubmit} className="space-y-3">
                   {['nom','prenom','adresse','telephone','email'].map(field => (
                     <input
                       key={field}
