@@ -1,0 +1,133 @@
+import raquette from '../assets/raquette.jpg';
+import lac1 from '../assets/lac1.jpg';
+import lac2 from '../assets/lac2.jpg';
+import raquette2 from '../assets/raquette2.jpg';
+import balle1 from '../assets/balle1.png';
+import balle2 from '../assets/balle2.jpg';
+const products = [
+  { 
+    id: 1,
+    name: "T-Shirt Noir avec couture",
+    price: 39200, 
+    origPrice: 49000, 
+    discount: -20,
+    img: lac1,
+    images: [lac1, raquette, "bag.jpg"],
+    rating: 4.2,
+    category: "accessoires",
+    quantity: 2
+  },
+  { 
+    id: 2,
+    name: "Sac de Padel Luxury Open Series Noir/Orangeé",
+    price: 395000,
+    origPrice: 420000,
+    discount: -6, 
+    img: "bag.jpg", 
+    images: ["bag.jpg", lac1, lac2],
+    rating: 4.0,
+    outOfStock: true,
+    category: "accessoires",
+    quantity: 8
+  },
+  {
+    id: 3,
+    name: "Valkyrie Pro 2025",
+    price: 1100000, 
+    origPrice: 1200000, 
+    discount: -9, 
+    img: lac1, 
+    images: [lac1, lac2, raquette2],
+    rating: 4.7,
+    outOfStock: false,
+    category: "raquettes",
+    quantity: 6
+  },
+  { 
+    id: 4,
+    name: "Diablo Revolution III Lite 2024",
+    price: 500000, 
+    origPrice: 590000, 
+    discount: -15, 
+    img: "diablo-lite.jpg",
+    images: ["diablo-lite.jpg", lac1, raquette],
+    rating: 4.5,
+    category: "raquettes",
+    quantity: 6
+  },
+  { 
+    id: 5,
+    name: "Diablo", 
+    price: 350000, 
+    origPrice: 400000, 
+    discount: -13, 
+    img: lac2,
+    images: [lac2, raquette2, "nox.jpg"],
+    rating: 4.3,
+    category: "raquettes",
+    quantity: 8
+  },
+  {
+    id: 6, 
+    name: "Opale ML10", 
+    price: 650000, 
+    origPrice: 850000, 
+    discount: -26, 
+    img: raquette2,
+    images: [raquette2, lac1, "diablo-lite.jpg"],
+    rating: 4.6,
+    category: "raquettes",
+    quantity: 6
+  },
+  { 
+    id: 7,
+    name: "Opale", 
+    price: 780000, 
+    origPrice: 1000000, 
+    discount: -22, 
+    img: "nox.jpg",
+    images: ["nox.jpg", lac2, raquette],
+    rating: 4.4,
+    category: "raquettes",
+    quantity: 4
+  },
+  { 
+    id: 8,
+    name: "Diablo", 
+    price: 350000, 
+    origPrice: 400000, 
+    discount: -13, 
+    img: lac2,
+    images: [lac2, raquette2, "nox.jpg"],
+    rating: 4.3,
+    category: "raquettes",
+    quantity: 7
+  },
+  { 
+    id: 9,
+    name: "Opale ML10", 
+    price: 650000, 
+    origPrice: 850000, 
+    discount: -26, 
+    img: raquette2,
+    images: [raquette2, lac1, "diablo-lite.jpg"],
+    rating: 4.6,
+    category: "raquettes",
+    quantity: 6,
+  },
+  { 
+    id: 10,
+    name: "Opale", 
+    price: 780000, 
+    origPrice: 1000000, 
+    discount: -22, 
+    img: "nox.jpg",
+    images: ["nox.jpg", lac2, raquette],
+    rating: 4.4,
+    category: "raquettes",
+    quantity: 4,
+
+  },
+];
+
+export default products;
